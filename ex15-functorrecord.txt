@@ -1,3 +1,18 @@
+--registration bug 
+Assume the course registration function has a bug where it allows duplicate registrations.
+The function should prevent a student from registering for the same course twice.
+Test case showing the bug:
+register "Alice" ["Bob", "Alice"] -> ["Alice", "Bob", "Alice"] (duplicate Alice)
+
+Fixed implementation:
+registerFixed :: Eq a => a -> [a] -> [a]
+registerFixed student courseList 
+  | student `elem` courseList = courseList  -- Prevents duplicate registration
+  | otherwise = student : courseList
+
+ Test case after fix:
+registerFixed "Alice" ["Bob", "Alice"] -> ["Bob", "Alice"] (no duplicate Alice)
+
 -- Define the function maybeAp
 maybeAp :: Maybe (a -> b) -> Maybe a -> Maybe b
 maybeAp Nothing _ = Nothing
@@ -17,8 +32,8 @@ initList :: a -> [a]
 initList x = [x]
 
 -- Explanation of fmap (*3) (+100)
--- fmap applies a function to a functor.
--- Here, (+100) is a function (a -> a), and (*3) is another function (a -> a).
--- Since function application (-> r) is a functor, fmap (*3) (+100) means applying (*3) to the result of (+100).
--- This results in a function that takes an argument x and computes (*3) ((+100) x) which simplifies to (x + 100) * 3.
--- Example: (fmap (*3) (+100)) 5 -> (5 + 100) * 3 -> 315.
+ fmap applies a function to a functor.
+Here, (+100) is a function (a -> a), and (*3) is another function (a -> a).
+Since function application (-> r) is a functor, fmap (*3) (+100) means applying (*3) to the result of (+100).
+This results in a function that takes an argument x and computes (*3) ((+100) x) which simplifies to (x + 100) * 3.
+Example: (fmap (*3) (+100)) 5 -> (5 + 100) * 3 -> 315.
