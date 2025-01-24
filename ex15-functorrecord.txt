@@ -1,0 +1,24 @@
+-- Define the function maybeAp
+maybeAp :: Maybe (a -> b) -> Maybe a -> Maybe b
+maybeAp Nothing _ = Nothing
+maybeAp _ Nothing = Nothing
+maybeAp (Just f) (Just x) = Just (f x)
+
+-- Define the function initMaybe
+initMaybe :: a -> Maybe a
+initMaybe x = Just x
+
+-- Define the function listAp
+listAp :: [a -> b] -> [a] -> [b]
+listAp fs xs = [f x | f <- fs, x <- xs]
+
+-- Define the function initList
+initList :: a -> [a]
+initList x = [x]
+
+-- Explanation of fmap (*3) (+100)
+-- fmap applies a function to a functor.
+-- Here, (+100) is a function (a -> a), and (*3) is another function (a -> a).
+-- Since function application (-> r) is a functor, fmap (*3) (+100) means applying (*3) to the result of (+100).
+-- This results in a function that takes an argument x and computes (*3) ((+100) x) which simplifies to (x + 100) * 3.
+-- Example: (fmap (*3) (+100)) 5 -> (5 + 100) * 3 -> 315.
